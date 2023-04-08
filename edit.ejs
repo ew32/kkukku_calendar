@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html lang="en" data-theme="light" class="" style=""><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Preview • Pico.css</title>
+    <meta name="description" content="A starter example with all elements and components used in Pico design system. Built with Pico CSS.">
+    <link rel="shortcut icon" href="https://picocss.com/favicon.ico">
+    <link rel="canonical" href="https://picocss.com/examples/preview/">
+
+    <!-- Pico.css -->
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+
+</head>
+
+<body>
+
+<!-- Header -->
+<header class="container">
+    <hgroup>
+<!--        <h1>Pico</h1>-->
+<!--        <h2>A starter example with all elements and components used in Pico design system.</h2>-->
+    </hgroup>
+<!--    <nav>-->
+<!--        <ul>-->
+<!--            <li>-->
+<!--                <details role="list">-->
+<!--                    <summary aria-haspopup="listbox" role="button" class="secondary">Theme</summary>-->
+<!--                    <ul role="listbox">-->
+<!--                        <li><a href="#" data-theme-switcher="auto">Auto</a></li>-->
+<!--                        <li><a href="#" data-theme-switcher="light">Light</a></li>-->
+<!--                        <li><a href="#" data-theme-switcher="dark">Dark</a></li>-->
+<!--                    </ul>-->
+<!--                </details>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--                <details role="list">-->
+<!--                    <summary aria-haspopup="listbox">Examples</summary>-->
+<!--                    <ul role="listbox">-->
+<!--                        <li><a href="../preview/">Preview</a></li>-->
+<!--                        <li><a href="../preview-rtl/">Right-to-left</a></li>-->
+<!--                        <li><a href="../classless/">Class-less</a></li>-->
+<!--                        <li><a href="../basic-template/">Basic template</a></li>-->
+<!--                        <li><a href="../company/">Company</a></li>-->
+<!--                        <li><a href="../google-amp/">Google Amp</a></li>-->
+<!--                        <li><a href="../sign-in/">Sign in</a></li>-->
+<!--                        <li><a href="../bootstrap-grid/">Bootstrap grid</a></li>-->
+<!--                    </ul>-->
+<!--                </details>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </nav>-->
+</header><!-- ./ Header -->
+
+<!-- Main -->
+<main class="container">
+
+    <!-- Form elements-->
+    <section id="form" >
+        <form action="/save" method="post">
+            <h2>일정 추가</h2>
+
+            <!-- Search -->
+<!--            <label for="search">Search</label>-->
+<!--            <input type="search" id="search" name="search" placeholder="Search">-->
+
+            <!-- Text -->
+            <label for="title">제목</label>
+            <input type="text" id="title" name="title" placeholder="Text">
+<!--            <small>Curabitur consequat lacus at lacus porta finibus.</small>-->
+
+            <label for="content">내용</label>
+            <input type="text" id="content" name="content" placeholder="Text">
+<!--            <small>Curabitur consequat lacus at lacus porta finibus.</small>-->
+
+            <!-- Select -->
+<!--            <label for="select">Select</label>-->
+<!--            <select id="select" name="select" required="">-->
+<!--                <option value="" selected="">Select…</option>-->
+<!--                <option>…</option>-->
+<!--            </select>-->
+
+            <!-- File browser -->
+<!--            <label for="file">File browser-->
+<!--                <input type="file" id="file" name="file">-->
+<!--            </label>-->
+
+<!--            &lt;!&ndash; Range slider control &ndash;&gt;-->
+<!--            <label for="range">Range slider-->
+<!--                <input type="range" min="0" max="100" value="50" id="range" name="range">-->
+<!--            </label>-->
+
+            <!-- States -->
+<!--            <div class="grid">-->
+<!--                <label for="valid">-->
+<!--                    Valid-->
+<!--                    <input type="text" id="valid" name="valid" placeholder="Valid" aria-invalid="false">-->
+<!--                </label>-->
+<!--                <label for="invalid">-->
+<!--                    Invalid-->
+<!--                    <input type="text" id="invalid" name="invalid" placeholder="Invalid" aria-invalid="true">-->
+<!--                </label>-->
+<!--                <label for="disabled">-->
+<!--                    Disabled-->
+<!--                    <input type="text" id="disabled" name="disabled" placeholder="Disabled" disabled="">-->
+<!--                </label>-->
+<!--            </div>-->
+
+            <div class="grid">
+
+                <!-- Date-->
+                <label for="date">Date
+                    <input type="date" id="date" name="date">
+                </label>
+
+                <!-- Time-->
+                <label for="time">Time
+                    <input type="time" id="time" name="time">
+                </label>
+
+                <!-- Color-->
+<!--                <label for="color">Color-->
+<!--                    <input type="color" id="color" name="color" value="#0eaaaa">-->
+<!--                </label>-->
+
+            </div>
+
+<!--            <div class="grid">-->
+
+<!--                &lt;!&ndash; Checkboxes &ndash;&gt;-->
+<!--                <fieldset>-->
+<!--                    <legend><strong>Checkboxes</strong></legend>-->
+<!--                    <label for="checkbox-1">-->
+<!--                        <input type="checkbox" id="checkbox-1" name="checkbox-1" checked="">-->
+<!--                        Checkbox-->
+<!--                    </label>-->
+<!--                    <label for="checkbox-2">-->
+<!--                        <input type="checkbox" id="checkbox-2" name="checkbox-2">-->
+<!--                        Checkbox-->
+<!--                    </label>-->
+<!--                </fieldset>-->
+
+<!--                &lt;!&ndash; Radio buttons &ndash;&gt;-->
+<!--                <fieldset>-->
+<!--                    <legend><strong>Radio buttons</strong></legend>-->
+<!--                    <label for="radio-1">-->
+<!--                        <input type="radio" id="radio-1" name="radio" value="radio-1" checked="">-->
+<!--                        Radio button-->
+<!--                    </label>-->
+<!--                    <label for="radio-2">-->
+<!--                        <input type="radio" id="radio-2" name="radio" value="radio-2">-->
+<!--                        Radio button-->
+<!--                    </label>-->
+<!--                </fieldset>-->
+
+<!--                &lt;!&ndash; Switch &ndash;&gt;-->
+<!--                <fieldset>-->
+<!--                    <legend><strong>Switches</strong></legend>-->
+<!--                    <label for="switch-1">-->
+<!--                        <input type="checkbox" id="switch-1" name="switch-1" role="switch" checked="">-->
+<!--                        Switch-->
+<!--                    </label>-->
+<!--                    <label for="switch-2">-->
+<!--                        <input type="checkbox" id="switch-2" name="switch-2" role="switch">-->
+<!--                        Switch-->
+<!--                    </label>-->
+<!--                </fieldset>-->
+
+<!--            </div>-->
+
+            <!-- Buttons -->
+<!--            <input type="reset" value="Reset" onclick="event.preventDefault()">-->
+            <input type="submit" value="저장" >
+
+        </form>
+    </section><!-- ./ Form elements-->
+
+</main><!-- ./ Main -->
+
+<script>
+    // Set indeterminate progress bar
+    document.getElementById('progress-2').indeterminate = true;
+</script>
+
+
+</body></html>
+

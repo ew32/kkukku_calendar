@@ -1,9 +1,15 @@
 //express init
 import express from "express";
 import {Sequelize} from "sequelize";
+import bodyParser from "body-parser";
 
 var app = express();
 var port = 3000;
+
+//user body-parser
+// var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 //server
 app.listen(port, function(){
@@ -31,11 +37,31 @@ app.get('/', function(req, res) {
         res.render('index', {schedules: schedules});
 
     });
-
-
-// res.render('index');
 });
 
+app.get('/edit', function(req, res) {
+
+    //Schedule.findAll order by date
+    Schedule.findAll({
+        order: [
+            ['date', 'ASC']
+        ]
+    }).then((schedules) => {
+        console.log(schedules);
+        res.render('edit', {schedules: schedules});
+    });
+});
+
+app.post('/save', function (req, res) {
+    console.log(req.body);
+    Schedule.create({
+        title: req.body.title,
+        content: req.body.content,
+        date: req.body.date,
+        time: req.body.time
+    });
+    res.redirect('/');
+});
 
 
 //static
