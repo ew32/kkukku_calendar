@@ -63,6 +63,9 @@ app.post('/save', function (req, res) {
     res.redirect('/');
 });
 
+app.get('/download', function (req, res) {
+    res.download('./database.sqlite');
+});
 
 //static
 // app.use(express.static('public'));
