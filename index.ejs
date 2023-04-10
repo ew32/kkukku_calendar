@@ -1,114 +1,114 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>-->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />-->
 
-<html lang="en" data-theme="light"><head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Preview • Pico.css</title>
-    <meta name="description" content="A starter example with all elements and components used in Pico design system. Built with Pico CSS.">
-    <link rel="shortcut icon" href="https://picocss.com/favicon.ico">
-    <link rel="canonical" href="https://picocss.com/examples/preview/">
+<!--<html lang="en" data-theme="light"><head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--    <title>Preview • Pico.css</title>-->
+<!--    <meta name="description" content="A starter example with all elements and components used in Pico design system. Built with Pico CSS.">-->
+<!--    <link rel="shortcut icon" href="https://picocss.com/favicon.ico">-->
+<!--    <link rel="canonical" href="https://picocss.com/examples/preview/">-->
 
-    <!-- Pico.css -->
-    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+<!--    &lt;!&ndash; Pico.css &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">-->
 
-</head>
+<!--</head>-->
 
-<body>
+<!--<body>-->
 
-<!-- Header -->
-<header class="container">
-<!--    <hgroup>-->
-<!--        <h1>Pico</h1>-->
-<!--        <h2>A starter example with all elements and components used in Pico design system.</h2>-->
-<!--    </hgroup>-->
-    <nav>
-        <ul>
-<!--            <i class="fa fa-solid fa-bars"></i>-->
-            <li><a href="#" class="fa fa-solid fa-bars" >…</a></li>
-        </ul>
-        <ul>
-            <li><strong>꾸꾸들의 일정</strong></li>
-        </ul>
-        <ul>
-            <li><a class="fa fa-solid fa-plus" href="/edit"></a></li>
-        </ul>
-    </nav>
-</header><!-- ./ Header -->
+<!--&lt;!&ndash; Header &ndash;&gt;-->
+<!--<header class="container">-->
+<!--&lt;!&ndash;    <hgroup>&ndash;&gt;-->
+<!--&lt;!&ndash;        <h1>Pico</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;        <h2>A starter example with all elements and components used in Pico design system.</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;    </hgroup>&ndash;&gt;-->
+<!--    <nav>-->
+<!--        <ul>-->
+<!--&lt;!&ndash;            <i class="fa fa-solid fa-bars"></i>&ndash;&gt;-->
+<!--            <li><a href="#" class="fa fa-solid fa-bars" >…</a></li>-->
+<!--        </ul>-->
+<!--        <ul>-->
+<!--            <li><strong>꾸꾸들의 일정</strong></li>-->
+<!--        </ul>-->
+<!--        <ul>-->
+<!--            <li><a class="fa fa-solid fa-plus" href="/edit"></a></li>-->
+<!--        </ul>-->
+<!--    </nav>-->
+<!--</header>&lt;!&ndash; ./ Header &ndash;&gt;-->
 
-<!-- Main -->
-<main class="container">
+<!--&lt;!&ndash; Main &ndash;&gt;-->
+<!--<main class="container">-->
 
-    <!-- Tables -->
-    <section id="tables">
-<!--        <h2>Tables</h2>-->
-        <figure>
-            <table role="grid">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">날짜</th>
-                    <th scope="col">내용</th>
-<!--                    <th scope="col">Heading</th>-->
-<!--                    <th scope="col">Heading</th>-->
-<!--                    <th scope="col">Heading</th>-->
-<!--                    <th scope="col">Heading</th>-->
-<!--                    <th scope="col">Heading</th>-->
-                </tr>
-                </thead>
-                <tbody>
+<!--    &lt;!&ndash; Tables &ndash;&gt;-->
+<!--    <section id="tables">-->
+<!--&lt;!&ndash;        <h2>Tables</h2>&ndash;&gt;-->
+<!--        <figure>-->
+<!--            <table role="grid">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th scope="col">#</th>-->
+<!--                    <th scope="col">날짜</th>-->
+<!--                    <th scope="col">제목</th>-->
+<!--&lt;!&ndash;                    <th scope="col">Heading</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <th scope="col">Heading</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <th scope="col">Heading</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <th scope="col">Heading</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <th scope="col">Heading</th>&ndash;&gt;-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
 
-                <!-- ejs 반복문 실행 -->
-                <% for(var i=0; i<schedules.length; i++){ %>
-                <tr>
-                    <th scope="row"><%= i+1 %></th>
-                    <td><%= schedules[i].date %></td>
-                    <td><%= schedules[i].content %></td>
-                </tr>
-                <% } %>
+<!--                &lt;!&ndash; ejs 반복문 실행 &ndash;&gt;-->
+<!--                <% for(var i=0; i<schedules.length; i++){ %>-->
+<!--                <tr>-->
+<!--                    <th scope="row"><%= i+1 %></th>-->
+<!--                    <td><%= schedules[i].date %></td>-->
+<!--                    <td><%= schedules[i].title %></td>-->
+<!--                </tr>-->
+<!--                <% } %>-->
 
-                </tbody>
-            </table>
-        </figure>
-    </section><!-- ./ Tables -->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--        </figure>-->
+<!--    </section>&lt;!&ndash; ./ Tables &ndash;&gt;-->
 
-</main><!-- ./ Main -->
+<!--</main>&lt;!&ndash; ./ Main &ndash;&gt;-->
 
-<!-- Footer -->
-<!--<footer class="container">-->
-<!--    <small>Built with <a href="https://picocss.com">Pico</a> • <a href="https://github.com/picocss/examples/blob/master/preview/index.html">Source code</a></small>-->
-<!--</footer>&lt;!&ndash; ./ Footer &ndash;&gt;-->
+<!--&lt;!&ndash; Footer &ndash;&gt;-->
+<!--&lt;!&ndash;<footer class="container">&ndash;&gt;-->
+<!--&lt;!&ndash;    <small>Built with <a href="https://picocss.com">Pico</a> • <a href="https://github.com/picocss/examples/blob/master/preview/index.html">Source code</a></small>&ndash;&gt;-->
+<!--&lt;!&ndash;</footer>&lt;!&ndash; ./ Footer &ndash;&gt;&ndash;&gt;-->
 
-<!-- Modal example -->
-<!--<dialog id="modal-example">-->
-<!--    <article>-->
-<!--        <a href="#close" aria-label="Close" class="close" data-target="modal-example" onclick="toggleModal(event)"></a>-->
-<!--        <h3>Confirm your action!</h3>-->
-<!--        <p>Cras sit amet maximus risus. Pellentesque sodales odio sit amet augue finibus pellentesque. Nullam finibus risus non semper euismod.</p>-->
-<!--        <footer>-->
-<!--            <a href="#cancel" role="button" class="secondary" data-target="modal-example" onclick="toggleModal(event)">Cancel</a><a href="#confirm" role="button" data-target="modal-example" onclick="toggleModal(event)">Confirm</a>-->
-<!--        </footer>-->
-<!--    </article>-->
-<!--</dialog>&lt;!&ndash; ./ Modal example &ndash;&gt;-->
+<!--&lt;!&ndash; Modal example &ndash;&gt;-->
+<!--&lt;!&ndash;<dialog id="modal-example">&ndash;&gt;-->
+<!--&lt;!&ndash;    <article>&ndash;&gt;-->
+<!--&lt;!&ndash;        <a href="#close" aria-label="Close" class="close" data-target="modal-example" onclick="toggleModal(event)"></a>&ndash;&gt;-->
+<!--&lt;!&ndash;        <h3>Confirm your action!</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;        <p>Cras sit amet maximus risus. Pellentesque sodales odio sit amet augue finibus pellentesque. Nullam finibus risus non semper euismod.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;        <footer>&ndash;&gt;-->
+<!--&lt;!&ndash;            <a href="#cancel" role="button" class="secondary" data-target="modal-example" onclick="toggleModal(event)">Cancel</a><a href="#confirm" role="button" data-target="modal-example" onclick="toggleModal(event)">Confirm</a>&ndash;&gt;-->
+<!--&lt;!&ndash;        </footer>&ndash;&gt;-->
+<!--&lt;!&ndash;    </article>&ndash;&gt;-->
+<!--&lt;!&ndash;</dialog>&lt;!&ndash; ./ Modal example &ndash;&gt;&ndash;&gt;-->
 
-<!-- Minimal theme switcher -->
-<script src="../js/minimal-theme-switcher.js"></script>
+<!--&lt;!&ndash; Minimal theme switcher &ndash;&gt;-->
+<!--<script src="../js/minimal-theme-switcher.js"></script>-->
 
-<!-- Modal -->
-<script src="../js/modal.js"></script>
+<!--&lt;!&ndash; Modal &ndash;&gt;-->
+<!--<script src="../js/modal.js"></script>-->
 
-<script>
-    // Set indeterminate progress bar
-    document.getElementById('progress-2').indeterminate = true;
-</script>
-
-
+<!--<script>-->
+<!--    // Set indeterminate progress bar-->
+<!--    document.getElementById('progress-2').indeterminate = true;-->
+<!--</script>-->
 
 
-</body></html>
 
 
-<script>
+<!--</body></html>-->
 
-</script>
+
+<!--<script>-->
+
+<!--</script>-->

@@ -59,12 +59,12 @@
                 </thead>
                 <tbody>
 
-                <!-- ejs 반복문 실행 -->
+                <!-- ejs 반복문 실행 and tr태그에 클릭이벤트 -->
                 <% for(var i=0; i<schedules.length; i++){ %>
-                <tr>
-                    <th scope="row"><%= i+1 %></th>
-                    <td><%= schedules[i].date %></td>
-                    <td><%= schedules[i].content %></td>
+                <tr onclick="location.href='/edit/<%=schedules[i].id%>'">
+                    <td><%=schedules[i].id%></td>
+                    <td><%=schedules[i].date%></td>
+                    <td><%=schedules[i].title%></td>
                 </tr>
                 <% } %>
 

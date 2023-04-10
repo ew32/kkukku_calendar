@@ -42,24 +42,57 @@ app.get('/', function(req, res) {
 app.get('/edit', function(req, res) {
 
     //Schedule.findAll order by date
-    Schedule.findAll({
-        order: [
-            ['date', 'ASC']
-        ]
-    }).then((schedules) => {
-        console.log(schedules);
-        res.render('edit', {schedules: schedules});
+    // Schedule.findAll({
+    //     order: [
+    //         ['date', 'ASC']
+    //     ]
+    // }).then((schedules) => {
+    //     console.log(schedules);
+    //     res.render('edit', {schedules: schedules});
+    // });
+
+    res.render('edit', {schedule: [] });
+});
+
+//app.get /edit parameter
+app.get('/edit/:id', function (req, res) {
+    Schedule.findByPk(req.params.id).then((schedule) => {
+        console.log(schedule);
+        res.render('edit', {schedule: schedule});
+    });
+});
+
+//app.post /delete parameter
+app.post('/delete/:id', function (req, res) {
+    Schedule.findByPk(req.params.id).then((schedule) => {
+        schedule.destroy();
+        // res.location('/');
+        res.redirect('/');
     });
 });
 
 app.post('/save', function (req, res) {
     console.log(req.body);
-    Schedule.create({
-        title: req.body.title,
-        content: req.body.content,
-        date: req.body.date,
-        time: req.body.time
-    });
+
+    //chk req.body.id
+    if(req.body.id == ''){
+        //insert
+        Schedule.create({
+            title: req.body.title,
+            content: req.body.content,
+            date: req.body.date,
+            time: req.body.time
+        });
+    } else {
+        Schedule.upsert({
+            id: req.body.id,
+            title: req.body.title,
+            content: req.body.content,
+            date: req.body.date,
+            time: req.body.time
+        });
+    }
+
     res.redirect('/');
 });
 
