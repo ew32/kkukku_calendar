@@ -27,16 +27,37 @@ app.set('view engine', 'ejs');
 // '/' 경로로 GET 요청이 오면 index.ejs 파일을 렌더링하여 클라이언트에게 전송합니다.
 app.get('/', function(req, res) {
 
-    //Schedule.findAll order by date
+    //Schedule.findAll order by date and create date > now
     Schedule.findAll({
+
+        //today yyyy-MM-dd
+        // var today = new Date().toISOString().slice(0, 10);
+        // console.log(today);
+
         order: [
             ['date', 'ASC']
-        ]
+        ],
+        where: {
+            date: {
+                [Sequelize.Op.gte]: new Date().toISOString().slice(0, 10)
+
+            }
+        }
     }).then((schedules) => {
         console.log(schedules);
         res.render('index', {schedules: schedules});
-
     });
+
+    // Schedule.findAll({
+    //     order: [
+    //         ['date', 'ASC']
+    //     ]
+    // }).then((schedules) => {
+    //     console.log(schedules);
+    //     res.render('index', {schedules: schedules});
+    //
+    // });
+
 });
 
 app.get('/edit', function(req, res) {
@@ -75,7 +96,7 @@ app.post('/save', function (req, res) {
     console.log(req.body);
 
     //chk req.body.id
-    if(req.body.id == ''){
+    if(req.body.id === ''){
         //insert
         Schedule.create({
             title: req.body.title,
@@ -103,11 +124,20 @@ app.get('/download', function (req, res) {
 //static
 // app.use(express.static('public'));
 
-//init sqlite db and sequelize
+//init postgres db and sequelize
 const db = new Sequelize({
-    dialect: 'sqlite',
-    storage: './database.sqlite'
+    dialect: 'postgres',
+    host: 'svc.sel3.cloudtype.app',
+    port: 30075,
+    username: 'root',
+    password: 'rlatpwns1!',
+    database: 'postgres'
 });
+
+// const db = new Sequelize({
+//     dialect: 'sqlite',
+//     storage: './database.sqlite'
+// });
 
 //define model schedule
 const Schedule = db.define('schedule', {

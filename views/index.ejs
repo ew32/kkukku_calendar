@@ -49,6 +49,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">날짜</th>
+                    <th scope="col">D-Day</th>
                     <th scope="col">내용</th>
 <!--                    <th scope="col">Heading</th>-->
 <!--                    <th scope="col">Heading</th>-->
@@ -60,10 +61,28 @@
                 <tbody>
 
                 <!-- ejs 반복문 실행 and tr태그에 클릭이벤트 -->
-                <% for(var i=0; i<schedules.length; i++){ %>
+                <% function calcDday(date) {
+
+                    //d-day yyyy-MM-dd
+                    var dday = new Date(schedules[i].date);
+                    var today = new Date();
+                    var gap = dday.getTime() - today.getTime();
+                    var result = Math.floor(gap / (1000 * 60 * 60 * 24)) + 1;
+                    if(result > 0){
+                        return "D-"+result;
+                    }else if(result < 1){
+                        return "D-day";
+                    }
+                }
+                for(var i=0; i<schedules.length; i++){ %>
                 <tr onclick="location.href='/edit/<%=schedules[i].id%>'">
                     <td><%=schedules[i].id%></td>
                     <td><%=schedules[i].date%></td>
+
+                    <td><%=
+                        calcDday(schedules[i].date);
+                    %></td>
+
                     <td><%=schedules[i].title%></td>
                 </tr>
                 <% } %>
