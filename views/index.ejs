@@ -5,7 +5,7 @@
 <html lang="en" data-theme="light"><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Preview • Pico.css</title>
+    <title>꾸꾸들의 캘린더</title>
     <meta name="description" content="A starter example with all elements and components used in Pico design system. Built with Pico CSS.">
     <link rel="shortcut icon" href="https://picocss.com/favicon.ico">
     <link rel="canonical" href="https://picocss.com/examples/preview/">
@@ -74,10 +74,19 @@
                         return "D-day";
                     }
                 }
+
+                //요일 구하기
+                function getDay(date){
+                    var week = new Array('일', '월', '화', '수', '목', '금', '토');
+                    var today = new Date(date).getDay();
+                    var todayLabel = week[today];
+                    return todayLabel;
+                }
+
                 for(var i=0; i<schedules.length; i++){ %>
                 <tr onclick="location.href='/edit/<%=schedules[i].id%>'">
                     <td><%=schedules[i].id%></td>
-                    <td><%=schedules[i].date%></td>
+                    <td><%=schedules[i].date + "(" + getDay(schedules[i].date) + ")"%></td>
 
                     <td><%=
                         calcDday(schedules[i].date);
