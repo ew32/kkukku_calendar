@@ -26,7 +26,8 @@ router.get('/', function(req, res) {
             date: {
                 [Sequelize.Op.gte]: new Date().toISOString().slice(0, 10)
 
-            }
+            },
+            calendarid: 1
         }
     }).then((schedules) => {
         console.log(schedules);
@@ -82,12 +83,14 @@ router.post('/save', function (req, res) {
 
     //chk req.body.id
     if(req.body.id === ''){
+
         //insert
         Schedule.create({
             title: req.body.title,
             content: req.body.content,
             date: req.body.date,
-            time: req.body.time
+            time: req.body.time,
+            calendarid: 1
         });
     } else {
         Schedule.upsert({

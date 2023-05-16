@@ -18,7 +18,8 @@ const User = db.define('user', {
     },
     name: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        defaultValue: 'user'
     },
     password: {
         type: Sequelize.STRING,
@@ -30,7 +31,7 @@ const Calendar = db.define('calendar', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
     },
     userid: {
         type: Sequelize.STRING,
@@ -39,6 +40,11 @@ const Calendar = db.define('calendar', {
             model: User,
             key: 'id'
         }
+    },
+    name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: 'calendar'
     }
 });
 
@@ -83,7 +89,7 @@ const Schedule = db.define('schedule', {
 
 //db sync force
 
-db.sync()
+db.sync({alter: true})
     .then(() => console.log('Database has been synced'))
     .catch((err) => console.error('Unable to sync the database:', err));
 
