@@ -31,22 +31,38 @@ router.get('/', function(req, res) {
         }
     }).then((schedules) => {
         console.log(schedules);
-        res.render('index', {schedules: schedules});
+        res.render('index', {schedules: schedules, calendarid: "1"});
     });
 
-    // Schedule.findAll({
-    //     order: [
-    //         ['date', 'ASC']
-    //     ]
-    // }).then((schedules) => {
-    //     console.log(schedules);
-    //     res.render('index', {schedules: schedules});
-    //
-    // });
+});
+router.get('/100', function(req, res) {
+
+    //Schedule.findAll order by date and create date > now
+    Schedule.findAll({
+
+        //today yyyy-MM-dd
+        // var today = new Date().toISOString().slice(0, 10);
+        // console.log(today);
+
+        order: [
+            ['date', 'ASC']
+        ],
+        where: {
+            date: {
+                [Sequelize.Op.gte]: new Date().toISOString().slice(0, 10)
+
+            },
+            calendarid: 2
+        }
+    }).then((schedules) => {
+        console.log(schedules);
+        res.render('index', {schedules: schedules, calendarid: "2"});
+    });
 
 });
-
 router.get('/edit', function(req, res) {
+
+    console.log(req.query.calendarid);
 
     //Schedule.findAll order by date
     // Schedule.findAll({
@@ -58,14 +74,14 @@ router.get('/edit', function(req, res) {
     //     res.render('edit', {schedules: schedules});
     // });
 
-    res.render('edit', {schedule: [] });
+    res.render('edit', {schedule: [], calendarid: req.query.calendarid });
 });
 
 //router.get /edit parameter
 router.get('/edit/:id', function (req, res) {
     Schedule.findByPk(req.params.id).then((schedule) => {
         console.log(schedule);
-        res.render('edit', {schedule: schedule});
+        res.render('edit', {schedule: schedule, calendarid: schedule.calendarid});
     });
 });
 
@@ -90,7 +106,7 @@ router.post('/save', function (req, res) {
             content: req.body.content,
             date: req.body.date,
             time: req.body.time,
-            calendarid: 1
+            calendarid: req.body.calendarid
         });
     } else {
         Schedule.upsert({
