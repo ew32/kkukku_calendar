@@ -1,6 +1,9 @@
 const express = require('express');
 const {Sequelize} = require("sequelize");
-const Schedule = require('../model/model');
+const {Schedule, Calendar, CalendarShare} = require('../model/model');
+
+// const passport = require('../passport/local-login');
+const passport = require('passport')
 
 const router = express.Router();
 
@@ -10,10 +13,18 @@ router.get('/test', function (req, res) {
 
 
 // '/' 경로로 GET 요청이 오면 index.ejs 파일을 렌더링하여 클라이언트에게 전송합니다.
-router.get('/', function(req, res) {
+router.get('/', async function (req, res) {
+
+    const user = req.user;
+
+    if (!user)
+    {
+        res.render('login');
+        return;
+    }
 
     //Schedule.findAll order by date and create date > now
-    Schedule.findAll({
+    const schedules = await Schedule.findAll({
 
         //today yyyy-MM-dd
         // var today = new Date().toISOString().slice(0, 10);
@@ -25,41 +36,62 @@ router.get('/', function(req, res) {
         where: {
             date: {
                 [Sequelize.Op.gte]: new Date().toISOString().slice(0, 10)
-
             },
-            calendarid: 1
-        }
-    }).then((schedules) => {
-        console.log(schedules);
+        },
+        include: [{
+            model: Calendar,
+            where: {
+                userid: req.user.id
+            }
+        }]
+    });
+
+    const schedules2 = await Schedule.findAll({
+
+        order: [
+            ['date', 'ASC']
+        ],
+        where: {
+            date: {
+                [Sequelize.Op.gte]: new Date().toISOString().slice(0, 10)
+            },
+        },
+        include: [{
+            required: true,
+            model: Calendar,
+            include: [{
+                required: true,
+                model: CalendarShare,
+                where: {
+                    userid2: req.user.id
+                }
+                // include: [{
+                //     required: true,
+                //     model: Calendar,
+                //     where: {
+                //         userid: req.user.id
+                //     }
+                // }]
+            }]
+        }]
+    });
+
+    if(req.user.id == 'sejunkim') {
         res.render('index', {schedules: schedules, calendarid: "1"});
-    });
+    } else {
+        res.render('index', {schedules: schedules2, calendarid: "1"});
+    }
+
+    // .then((schedules) => {
+    //     console.log(schedules);
+    //     res.render('index', {schedules: schedules, calendarid: "1"});
+    // }).catch((err) => {
+    //     console.log(err);
+    // });
 
 });
-router.get('/100', function(req, res) {
 
-    //Schedule.findAll order by date and create date > now
-    Schedule.findAll({
 
-        //today yyyy-MM-dd
-        // var today = new Date().toISOString().slice(0, 10);
-        // console.log(today);
-
-        order: [
-            ['date', 'ASC']
-        ],
-        where: {
-            date: {
-                [Sequelize.Op.gte]: new Date().toISOString().slice(0, 10)
-
-            },
-            calendarid: 2
-        }
-    }).then((schedules) => {
-        console.log(schedules);
-        res.render('index', {schedules: schedules, calendarid: "2"});
-    });
-
-});
 router.get('/edit', function(req, res) {
 
     console.log(req.query.calendarid);
@@ -120,5 +152,60 @@ router.post('/save', function (req, res) {
 
     res.redirect('/');
 });
+
+router.post('/login', function (req, res) {
+    if (!req.body.keepLogIn) { //자동 로그인이 아니라면 session과 cookie 생성
+        passport.authenticate('local-login', (err, user, message) => {
+            if (!user) res.send(message);
+            return req.login(user, loginError => {
+                if (loginError) (loginError);
+                else {
+                    let date = new Date();
+                    date = date.toISOString().slice(0, 10);
+                    res.cookie('omg_last_login', date, {
+                        expires: new Date(Date.now() + 24 * 60 * 60),
+                        httpOnly: true,
+                    });
+
+                    req.session.save(() => {
+                        // res.send("SUCCESS");
+                        res.redirect('/');
+                    });
+                    // res.send(baseResponse.SUCCESS);
+                }
+            });
+        })(req, res);
+    } else { //자동 로그인 시 session값만 생성
+        passport.authenticate('local-login', (err, user, message) => {
+            if (!user) res.send(message);
+            return req.login(user, loginError => {
+                if (loginError) (loginError);
+                else res.send(baseResponse.SUCCESS);
+            });
+        })(req, res);
+    }
+});
+
+router.get('/login', function (req, res) {
+        if (req.cookies.omg_last_login) {
+            let date = new Date();
+            date = date.toISOString().slice(0, 10);	 //ex)2022-02-10
+            if (date == req.cookies.omg_last_login) { //omg_last_login 이 오늘인 경우
+                if (req.user) res.redirect('/');        //session 값이 존재하는 경우
+                else res.render('login');   //session 값이 존재하지 않는 경우
+            } else { //omg_last_login cookie가 오늘 날짜가 아닌 경우 (로그인 시간 만료)
+                if (req.user) { //로그인 시간이 만료되었으나 session 값이 남아 있는 경우
+                    req.logout();   //session 값 파기 후 login 페이지로 이동
+                    req.session.destroy(() => {
+                        req.session;
+                    });
+                }
+                res.render('login'); //로그인 시간도 만료되었고 session 값도 없으므로 login 페이지 이동
+            }
+        } else if (req.user) res.redirect('/'); //omg_last_login cookie가 없고 session값만 있는 경우 (=자동 로그인으로 로그인)
+        else res.render('login'); //그 외의 경우는 로그인 시도가 없던 것이므로 로그인 페이지로 이동
+    },
+);
+
 
 module.exports = router;

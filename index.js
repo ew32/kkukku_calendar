@@ -2,15 +2,37 @@
 const express = require("express");
 const bodyParser = require ("body-parser");
 
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+
+const passport = require('passport');
+
+const passportConfig = require('./passport/local-login')
+
 const route = require('./route/route');
 
 const app = express();
 const port = 3000;
 
+passportConfig();
+
 //user body-parser
 // var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(cookieParser()); //Cookie 값을 읽기 위한 setting
+app.use( //session을 저장하기 위한 setting
+
+    session({
+        secret: "test1234!@#$",
+        resave: false, //request 마다 session값이 변경이 없으면 resave 하지 않음.
+        saveUninitialized: true, //초기화 되지 않은 session의 강제 저장 여부
+        cookie: { secure: false, maxAge: 24 * 60 * 60 * 30 }, //보안: false, maxAge: 30일
+    }),
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', route);
 
