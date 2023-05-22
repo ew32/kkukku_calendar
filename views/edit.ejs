@@ -59,7 +59,22 @@
     <section id="form" >
         <form action="/save" method="post">
 
-            <input type="hidden" id="calendarid" name="calendarid" value="<%=calendarid%>">
+            <!-- Select -->
+            <label for="select">Select</label>
+            <select id="calendarid" name="calendarid" required="">
+
+                <!--for-->
+                <%
+                    for(var i=0; i<calendars.length; i++){
+                %>
+                <option value="<%=calendars[i].id%>"><%=calendars[i].name%></option>
+                <%
+                    }
+                %>
+<!--                <option value="" selected="">Select…</option>-->
+<!--                <option>…</option>-->
+            </select>
+
 
             <h2>일정 추가</h2>
 

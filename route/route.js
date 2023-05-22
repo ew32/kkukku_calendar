@@ -24,7 +24,7 @@ router.get('/', async function (req, res) {
     }
 
     //Schedule.findAll order by date and create date > now
-    const schedules = await Schedule.findAll({
+    let schedules = await Schedule.findAll({
 
         //today yyyy-MM-dd
         // var today = new Date().toISOString().slice(0, 10);
@@ -75,12 +75,18 @@ router.get('/', async function (req, res) {
             }]
         }]
     });
+    schedules = schedules.concat(schedules2);
+    // schedules = await Promise.all([
+    //     schedules, schedules2
+    // ]).then((schedules) => {
+    //     return schedules[0].concat(schedules[1]);
+    // });
 
-    if(req.user.id == 'sejunkim') {
-        res.render('index', {schedules: schedules, calendarid: "1"});
-    } else {
-        res.render('index', {schedules: schedules2, calendarid: "1"});
-    }
+    // if(req.user.id == 'sejunkim') {
+    res.render('index', {schedules: schedules});
+    // } else {
+    //     res.render('index', {schedules: schedules2, calendarid: "1"});
+    // }
 
     // .then((schedules) => {
     //     console.log(schedules);
@@ -92,9 +98,9 @@ router.get('/', async function (req, res) {
 });
 
 
-router.get('/edit', function(req, res) {
+router.get('/edit', async function (req, res) {
 
-    console.log(req.query.calendarid);
+    // console.log(req.query.calendarid);
 
     //Schedule.findAll order by date
     // Schedule.findAll({
@@ -106,14 +112,34 @@ router.get('/edit', function(req, res) {
     //     res.render('edit', {schedules: schedules});
     // });
 
-    res.render('edit', {schedule: [], calendarid: req.query.calendarid });
+    calendars = await Calendar.findAll({
+        attributes: ['id', 'name'],
+        where: {
+            userid: req.user.id
+        }
+    });
+
+    calendars2 = await Calendar.findAll({
+        attributes: ['id', 'name'],
+        include: [{
+            required: true,
+            model: CalendarShare,
+            where: {
+                userid2: req.user.id
+            }
+        }]
+    });
+
+    calendars = calendars.concat(calendars2);
+
+    res.render('edit', {schedule: [], calendars: calendars});
 });
 
 //router.get /edit parameter
 router.get('/edit/:id', function (req, res) {
     Schedule.findByPk(req.params.id).then((schedule) => {
         console.log(schedule);
-        res.render('edit', {schedule: schedule, calendarid: schedule.calendarid});
+        res.render('edit', {schedule: schedule, calendars: []});
     });
 });
 
@@ -163,7 +189,7 @@ router.post('/login', function (req, res) {
                     let date = new Date();
                     date = date.toISOString().slice(0, 10);
                     res.cookie('omg_last_login', date, {
-                        expires: new Date(Date.now() + 24 * 60 * 60),
+                        expires: new Date(Date.now() + 24 * 60 * 60 * 30),
                         httpOnly: true,
                     });
 
