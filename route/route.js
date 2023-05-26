@@ -1,5 +1,5 @@
 const express = require('express');
-const {Sequelize} = require("sequelize");
+const {Sequelize, where} = require("sequelize");
 const {Schedule, Calendar, CalendarShare} = require('../model/model');
 
 // const passport = require('../passport/local-login');
@@ -137,9 +137,12 @@ router.get('/edit', async function (req, res) {
 
 //router.get /edit parameter
 router.get('/edit/:id', function (req, res) {
-    Schedule.findByPk(req.params.id).then((schedule) => {
+    Schedule.findByPk(req.params.id).then(async (schedule) => {
         console.log(schedule);
-        res.render('edit', {schedule: schedule, calendars: []});
+
+        var caendars = await schedule.getCalendar();
+
+        res.render('edit', {schedule: schedule, calendars: [caendars]});
     });
 });
 
@@ -167,16 +170,20 @@ router.post('/save', function (req, res) {
             calendarid: req.body.calendarid
         });
     } else {
-        Schedule.upsert({
-            id: req.body.id,
+        Schedule.update({
+            // id: req.body.id,
             title: req.body.title,
             content: req.body.content,
             date: req.body.date,
             time: req.body.time
+        }, {
+            where: {
+                id: req.body.id
+            }
         });
     }
 
-    res.redirect('/');
+    // res.redirect('/');
 });
 
 router.post('/login', function (req, res) {

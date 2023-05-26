@@ -28,7 +28,7 @@ app.use( //session을 저장하기 위한 setting
         secret: "test1234!@#$",
         resave: false, //request 마다 session값이 변경이 없으면 resave 하지 않음.
         saveUninitialized: true, //초기화 되지 않은 session의 강제 저장 여부
-        cookie: { secure: false, maxAge: 24 * 60 * 60 * 30 }, //보안: false, maxAge: 30일
+        cookie: { secure: false, maxAge: 24 * 60 * 60 * 30 * 1000}, //보안: false, maxAge: 30일
     }),
 );
 app.use(passport.initialize());
