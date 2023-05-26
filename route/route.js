@@ -183,7 +183,7 @@ router.post('/save', function (req, res) {
         });
     }
 
-    // res.redirect('/');
+    res.redirect('/');
 });
 
 router.post('/login', function (req, res) {
