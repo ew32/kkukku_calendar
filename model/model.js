@@ -136,7 +136,7 @@ CalendarShare.belongsTo(Calendar, {foreignKey: 'calendarid', targetKey: 'id'});
 
 //db sync force
 
-db.sync({alter: true})
+db.sync(/*{alter: true}*/)
     .then(() => console.log('Database has been synced'))
     .catch((err) => console.error('Unable to sync the database:', err));
 
@@ -144,5 +144,6 @@ module.exports = {
     Schedule,
     User,
     Calendar,
-    CalendarShare
+    CalendarShare,
+    db
 };

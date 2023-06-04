@@ -98,6 +98,19 @@
 
                 </tbody>
             </table>
+
+            <!--page ui-->
+            <div class="page">
+                <% if(page > 1){ %>
+                <a href="/?page=<%=(page-1)%>"><</a>
+                <% } %>
+                <span><%=page%></span>
+                <% if(page < 10){ %>
+                <a href="/?page=<%=(page+1)%>">></a>
+                <% } %>
+            </div>
+
+
         </figure>
     </section><!-- ./ Tables -->
 

@@ -1,6 +1,6 @@
 const express = require('express');
 const {Sequelize, where} = require("sequelize");
-const {Schedule, Calendar, CalendarShare} = require('../model/model');
+const {Schedule, Calendar, CalendarShare, db} = require('../model/model');
 
 // const passport = require('../passport/local-login');
 const passport = require('passport')
@@ -15,6 +15,8 @@ router.get('/test', function (req, res) {
 // '/' 경로로 GET 요청이 오면 index.ejs 파일을 렌더링하여 클라이언트에게 전송합니다.
 router.get('/', async function (req, res) {
 
+    const page = req.query.page || 1;
+    const limit = req.query.limit || 10;
     const user = req.user;
 
     if (!user)
@@ -22,7 +24,7 @@ router.get('/', async function (req, res) {
         res.render('login');
         return;
     }
-
+/*
     //Schedule.findAll order by date and create date > now
     let schedules = await Schedule.findAll({
 
@@ -76,14 +78,23 @@ router.get('/', async function (req, res) {
         }]
     });
     schedules = schedules.concat(schedules2);
+    */
+
     // schedules = await Promise.all([
     //     schedules, schedules2
     // ]).then((schedules) => {
     //     return schedules[0].concat(schedules[1]);
     // });
 
+    let schedules = await db.query('SELECT * FROM vw_all_schedules WHERE date >= :date AND userid = :userid OFFSET :offset LIMIT :limit', {
+        replacements: {date: new Date().toISOString().slice(0, 10), userid: req.user.id, offset: (page-1) * limit, limit: (page) * limit},
+        mapToModel: true,
+        model: Schedule
+        // type: Sequelize.QueryTypes.SELECT
+    });
+
     // if(req.user.id == 'sejunkim') {
-    res.render('index', {schedules: schedules});
+    res.render('index', {schedules: schedules, page: parseInt(page)});
     // } else {
     //     res.render('index', {schedules: schedules2, calendarid: "1"});
     // }
