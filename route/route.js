@@ -86,7 +86,7 @@ router.get('/', async function (req, res) {
     //     return schedules[0].concat(schedules[1]);
     // });
 
-    let schedules = await db.query('SELECT * FROM vw_all_schedules WHERE date >= :date AND userid = :userid OFFSET :offset LIMIT :limit', {
+    let schedules = await db.query('SELECT * FROM vw_all_schedules WHERE date >= :date AND userid = :userid order by date, time OFFSET :offset LIMIT :limit', {
         replacements: {date: new Date().toISOString().slice(0, 10), userid: req.user.id, offset: (page-1) * limit, limit: (page) * limit},
         mapToModel: true,
         model: Schedule
