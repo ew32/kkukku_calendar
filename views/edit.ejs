@@ -200,8 +200,9 @@
 
         </form>
 
-        <form action="/delete/<%=schedule.id%>" method="post">
-            <input class="contrast" type="submit" value="삭제" />
+        <form id="frm02" action="/delete/<%=schedule.id%>" method="post">
+<!--        <form>-->
+            <input class="contrast" onclick="deleteItem()" value="삭제" type="button" />
         </form>
     </section><!-- ./ Form elements-->
 
@@ -214,13 +215,19 @@
     function deleteItem() {
         if (confirm('정말 삭제하시겠습니까?')) {
 
+            // $('#frm02').submit();
+            document.getElementById('frm02').submit();
+
             //call delete method api only javascript
-            var xhr = new XMLHttpRequest();
-            xhr.open('DELETE', '/delete/<%=schedule.id%>', true);
-            xhr.send();
+            // var xhr = new XMLHttpRequest();
+            <!--xhr.open('DELETE', '/delete/<%=schedule.id%>', true);-->
+            // xhr.send();
+
+            <!--location.href="/delete/<%=schedule.id%>;"-->
 
             //redirect to list page
             // location.href = '/';
+
         }
     }
 </script>

@@ -16,7 +16,7 @@ router.get('/test', function (req, res) {
 router.get('/', async function (req, res) {
 
     const page = req.query.page || 1;
-    const limit = req.query.limit || 10;
+    const limit = req.query.limit || 20;
     const user = req.user;
 
     if (!user)
@@ -159,8 +159,8 @@ router.get('/edit/:id', function (req, res) {
 
 //router.post /delete parameter
 router.post('/delete/:id', function (req, res) {
-    Schedule.findByPk(req.params.id).then((schedule) => {
-        schedule.destroy();
+    Schedule.findByPk(req.params.id).then(async (schedule) => {
+        await schedule.destroy();
         // res.location('/');
         res.redirect('/');
     });
